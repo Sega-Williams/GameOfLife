@@ -9,8 +9,8 @@ class Map
 {
 public:
 	Map();
-	const int y = 1366/4;
-	const int x = 768/4;
+	const int y = 1366;
+	const int x = 768;
 	void nullNextGen();
 	void checkMap();
 	void updateMap();
