@@ -6,6 +6,8 @@ using namespace std;
 using namespace sf;
 
 
+void checkMapThread(Map& map);
+
 
 
 int main()
@@ -27,8 +29,8 @@ int main()
 	s_world.setTexture(world);
 	Map map;
 	sf::Clock clock;
-
-	
+	Mutex mut;
+	 
 	
 	while (window.isOpen())
 	{
@@ -42,32 +44,50 @@ int main()
 		
 		window.setView(view);
 		window.clear();
+		
 
+		
+		mut.lock();
+		
 		for (int i = 0; i < map.y; i++)
 		{
 			for (int j = 0; j < map.x; j++)
 			{
-				if (map.printMap(i, j)) s_world.setTextureRect(IntRect(0,0,10,10));
-				else s_world.setTextureRect(IntRect(10,0,10,10));
+				if (map.printMap(i, j)) s_world.setTextureRect(IntRect(0, 0, 10, 10));
+				else s_world.setTextureRect(IntRect(10, 0, 10, 10));
 
-				s_world.setPosition(i*10, j*10);
-				
+				s_world.setPosition(i * 10, j * 10);
+
 				window.draw(s_world);
 			}
 		}
-		
-		
-		
-		
+
+		mut.unlock();
+
 		window.display();
 		window.setFramerateLimit(60);
-		map.checkMap();
-		map.updateMap();
-		map.nullNextGen();
+		
+		Thread thread(&checkMapThread, map);
+		thread.launch();
+
+		
 		
 	}
 
 	return 0;
 }
 
+
+void checkMapThread(Map& map) {
+	
+	Mutex mut;
+	mut.lock();
+
+	map.checkMap();
+	
+	mut.lock();
+
+	map.updateMap();
+	map.nullNextGen();
+}
 

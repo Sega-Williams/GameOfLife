@@ -15,6 +15,7 @@ public:
 	void checkMap();
 	void updateMap();
 	bool printMap(int i, int j);
+	
 private:
 	int counter = 0;
 	
