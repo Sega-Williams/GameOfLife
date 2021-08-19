@@ -1,202 +1,73 @@
+#include <SFML/Graphics.hpp>
 #include <iostream>
+#include "map.h"
 
 using namespace std;
-const int y = 40;
-const int x = 40;
+using namespace sf;
 
-int main() {
-	srand(time(0));
-	int counter = 0;
-	char map[y][x];
-	char newMap[y][x];
-	//Обнуление карты
-	for (int i = 0; i < y; i++)
-	{
-		for (int j = 0; j < x; j++)
-		{
-			if (rand() % 2 == 1) {
-				map[i][j] = '@';
-			}
-			else map[i][j] = ' ';
-			newMap[i][j] = 0;
-		}
-	}
 
-	/*map[1][2] = '@';
-	map[2][2] = '@';
-	map[3][2] = '@';
 
-	map[19][20] = '@';
-	map[20][20] = '@';
-	map[20][18] = '@';
-	map[21][20] = '@';
-	map[21][19] = '@';*/
+
+int main()
+{
 	
-	bool isLive = true;
-	while (isLive) {
-		system("cls");
-		//Отрисовка карты
-		for (int i = 0; i < y; i++)
+
+	srand(time(0));
+	sf::RenderWindow window(sf::VideoMode(1366, 768), "SFML works!");
+	sf::Event event;
+	View view;
+	view.reset(FloatRect(0, 0, (1366 / 4)*10, (768/4)*10));
+	
+
+	Image world_image;
+	world_image.loadFromFile("images/square.bmp");
+	Texture world;
+	world.loadFromImage(world_image);
+	Sprite s_world;
+	s_world.setTexture(world);
+	Map map;
+	sf::Clock clock;
+
+	
+	
+	while (window.isOpen())
+	{
+		
+		
+		while (window.pollEvent(event))
 		{
-			for (int j = 0; j < x; j++)
-			{
-				cout << map[i][j] << ' ';
-			}
-			cout << endl;
+			if (event.type == sf::Event::Closed)
+				window.close();
 		}
-		//Обнуление карты следующей генерации
-		for (int i = 0; i < y; i++)
+		
+		window.setView(view);
+		window.clear();
+
+		for (int i = 0; i < map.y; i++)
 		{
-			for (int j = 0; j < x; j++)
+			for (int j = 0; j < map.x; j++)
 			{
-				newMap[i][j] = 0;
-			}
-		}
-		//system("PAUSE");
-		//Проверка карты
-		for (int i = 0; i < y; i++)
-		{
-			for (int j = 0; j < x; j++)
-			{
-				//Верхняя грань
-				if (i == 0 && (j !=0 && j != x-1)) {
-					if (map[y - 1][j - 1] == '@') counter++;
-					if (map[y - 1][j] == '@') counter++;
-					if (map[y - 1][j + 1] == '@') counter++;
-					if (map[i][j - 1] == '@') counter++;
+				if (map.printMap(i, j)) s_world.setTextureRect(IntRect(0,0,10,10));
+				else s_world.setTextureRect(IntRect(10,0,10,10));
 
-					if (map[i][j + 1] == '@') counter++;
-					if (map[i + 1][j - 1] == '@') counter++;
-					if (map[i + 1][j] == '@') counter++;
-					if (map[i + 1][j + 1] == '@') counter++;
-				}
-				//Нижняя грань
-				if (i == y - 1 && (j != 0 && j != x - 1)) {
-					if (map[i - 1][j - 1] == '@') counter++;
-					if (map[i - 1][j] == '@') counter++;
-					if (map[i - 1][j + 1] == '@') counter++;
-					if (map[i][j - 1] == '@') counter++;
-					
-					if (map[i][j + 1] == '@') counter++;
-					if (map[0][j - 1] == '@') counter++;
-					if (map[0][j] == '@') counter++;
-					if (map[0][j + 1] == '@') counter++;
-				}
-				//Левая грань
-				if ((i != 0 && i != y - 1) && j == 0) {
-					if (map[i - 1][x - 1] == '@') counter++;
-					if (map[i - 1][j] == '@') counter++;
-					if (map[i - 1][j + 1] == '@') counter++;
-					if (map[i][x - 1] == '@') counter++;
-					
-					if (map[i][j + 1] == '@') counter++;
-					if (map[i + 1][x - 1] == '@') counter++;
-					if (map[i + 1][j] == '@') counter++;
-					if (map[i + 1][j + 1] == '@') counter++;
-				}
-				//Правая грань
-				if ((i != 0 && i != y - 1) && j == x - 1) {
-					if (map[i - 1][j - 1] == '@') counter++;
-					if (map[i - 1][j] == '@') counter++;
-					if (map[i - 1][0] == '@') counter++;
-					if (map[i][j - 1] == '@') counter++;
-					
-					if (map[i][0] == '@') counter++;
-					if (map[i + 1][j - 1] == '@') counter++;
-					if (map[i + 1][j] == '@') counter++;
-					if (map[i + 1][0] == '@') counter++;
-				}
-				//Левый верхний угол
-				if (i == 0 && j == 0) {
-					if (map[y - 1][x - 1] == '@') counter++;
-					if (map[y - 1][j] == '@') counter++;
-					if (map[y - 1][j + 1] == '@') counter++;
-					if (map[i][x - 1] == '@') counter++;
-					
-					if (map[i][j + 1] == '@') counter++;
-					if (map[i + 1][x - 1] == '@') counter++;
-					if (map[i + 1][j] == '@') counter++;
-					if (map[i + 1][j + 1] == '@') counter++;
-				}
-
-				//правый верхний угол
-				if (i == 0 && j == x - 1) {
-					if (map[y - 1][j - 1] == '@') counter++;
-					if (map[y - 1][j] == '@') counter++;
-					if (map[y - 1][0] == '@') counter++;
-					if (map[i][j - 1] == '@') counter++;
-					
-					if (map[i][0] == '@') counter++;
-					if (map[i + 1][j - 1] == '@') counter++;
-					if (map[i + 1][j] == '@') counter++;
-					if (map[i + 1][0] == '@') counter++;
-				}
-
-				//Правый нижний угол
-				if (i == y - 1 && j == x - 1) {
-					if (map[i - 1][j - 1] == '@') counter++;
-					if (map[i - 1][j] == '@') counter++;
-					if (map[i - 1][0] == '@') counter++;
-					if (map[i][j - 1] == '@') counter++;
-					
-					if (map[i][0] == '@') counter++;
-					if (map[0][j - 1] == '@') counter++;
-					if (map[0][j] == '@') counter++;
-					if (map[0][0] == '@') counter++;
-				}
-				//Левый нижний угол
-				if (i == y - 1 && j == 0) {
-					if (map[i - 1][x - 1] == '@') counter++;
-					if (map[i - 1][j] == '@') counter++;
-					if (map[i - 1][j + 1] == '@') counter++;
-					if (map[i][x - 1] == '@') counter++;
-					
-					if (map[i][j + 1] == '@') counter++;
-					if (map[0][x - 1] == '@') counter++;
-					if (map[0][j] == '@') counter++;
-					if (map[0][j + 1] == '@') counter++;
-				}
-
+				s_world.setPosition(i*10, j*10);
 				
-
-				//проверка окружения каждой клетки
-				if (i > 0 && j > 0 || (i < y - 1) && (j < x - 1)) {
-					for (int checkY = -1; checkY < 2; checkY++)
-					{
-						for (int checkX = -1; checkX < 2; checkX++)
-						{
-							if (checkY != 0 || checkX != 0) {
-								if (map[i + checkY][j + checkX] == '@') counter++;
-							}
-						}
-					}
-				}
-				
-				
-				if (map[i][j] == ' ') { 
-					if (counter == 3) newMap[i][j] = '@'; 
-				}
-				else if (map[i][j] == '@') {
-					if (counter == 2 || counter == 3) newMap[i][j] = '@';
-					if (counter < 2 || counter > 3)  newMap[i][j] = ' ';
-				}
-				counter = 0;
+				window.draw(s_world);
 			}
 		}
-		isLive = false;
-		//Обновление карты
-		for (int i = 0; i < y; i++)
-		{
-			for (int j = 0; j < x; j++)
-			{
-				
-				if (newMap[i][j] != 0) {
-					map[i][j] = newMap[i][j];
-					isLive = true;
-				}
-				
-			}
-		}
-
+		
+		
+		
+		
+		window.display();
+		window.setFramerateLimit(60);
+		map.checkMap();
+		map.updateMap();
+		map.nullNextGen();
+		
 	}
+
+	return 0;
 }
+
+
