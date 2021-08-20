@@ -34,10 +34,12 @@ int main()
 	
 
 	Thread thread(&checkMapThread, map);
+	
 	Mutex mut;
-
+	
 	while (window.isOpen())
 	{
+		
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
@@ -60,12 +62,12 @@ int main()
 				window.draw(s_world);
 			}
 		}
-
+		
 		mut.unlock();
-
+		thread.launch();
 		window.display();
 		window.setFramerateLimit(60);
-		thread.launch();
+		
 	}
 	return 0;
 }
@@ -75,6 +77,6 @@ void checkMapThread(Map& map) {
 	mut.lock();
 	map.checkMap();
 	mut.unlock();
-	/*map.updateMap();*/
 }
+
 

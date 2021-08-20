@@ -1,11 +1,10 @@
 #include "map.h"
 Map::Map() {
-	
+	cout << "Create" << this << endl;
 	map = new bool* [y];
 	for (int i = 0; i < y; i++) map[i] = new bool[x];
 	newMap = new bool* [y];
 	for (int i = 0; i < y; i++) newMap[i] = new bool[x];
-	
 	
 	//Generator
 	
@@ -34,6 +33,11 @@ Map::Map() {
 	map[21][19] = 1;*/
 }
 
+Map::~Map() {
+	cout << "Delete\n";
+	
+}
+
 void Map::checkMap() {
 	//Проверка карты
 	for (int i = 0; i < y; i++)
@@ -42,91 +46,91 @@ void Map::checkMap() {
 		{
 			//Верхняя грань
 			if (i == 0 && (j != 0 && j != x - 1)) {
-				if (map[y - 1][j - 1] == 1) counter++;
-				if (map[y - 1][j] == 1) counter++;
-				if (map[y - 1][j + 1] == 1) counter++;
-				if (map[i][j - 1] == 1) counter++;
-				if (map[i][j + 1] == 1) counter++;
-				if (map[i + 1][j - 1] == 1) counter++;
-				if (map[i + 1][j] == 1) counter++;
-				if (map[i + 1][j + 1] == 1) counter++;
+				if (map[y - 1][j - 1] ) counter++;
+				if (map[y - 1][j] ) counter++;
+				if (map[y - 1][j + 1] ) counter++;
+				if (map[i][j - 1] ) counter++;
+				if (map[i][j + 1] ) counter++;
+				if (map[i + 1][j - 1] ) counter++;
+				if (map[i + 1][j] ) counter++;
+				if (map[i + 1][j + 1] ) counter++;
 			}
 			//Нижняя грань
 			if (i == y - 1 && (j != 0 && j != x - 1)) {
-				if (map[i - 1][j - 1] == 1) counter++;
-				if (map[i - 1][j] == 1) counter++;
-				if (map[i - 1][j + 1] == 1) counter++;
-				if (map[i][j - 1] == 1) counter++;
-				if (map[i][j + 1] == 1) counter++;
-				if (map[0][j - 1] == 1) counter++;
-				if (map[0][j] == 1) counter++;
-				if (map[0][j + 1] == 1) counter++;
+				if (map[i - 1][j - 1] ) counter++;
+				if (map[i - 1][j] ) counter++;
+				if (map[i - 1][j + 1] ) counter++;
+				if (map[i][j - 1] ) counter++;
+				if (map[i][j + 1] ) counter++;
+				if (map[0][j - 1] ) counter++;
+				if (map[0][j] ) counter++;
+				if (map[0][j + 1] ) counter++;
 			}
 			//Левая грань
 			if ((i != 0 && i != y - 1) && j == 0) {
-				if (map[i - 1][x - 1] == 1) counter++;
-				if (map[i - 1][j] == 1) counter++;
-				if (map[i - 1][j + 1] == 1) counter++;
-				if (map[i][x - 1] == 1) counter++;
-				if (map[i][j + 1] == 1) counter++;
-				if (map[i + 1][x - 1] == 1) counter++;
-				if (map[i + 1][j] == 1) counter++;
-				if (map[i + 1][j + 1] == 1) counter++;
+				if (map[i - 1][x - 1] ) counter++;
+				if (map[i - 1][j] ) counter++;
+				if (map[i - 1][j + 1] ) counter++;
+				if (map[i][x - 1] ) counter++;
+				if (map[i][j + 1] ) counter++;
+				if (map[i + 1][x - 1] ) counter++;
+				if (map[i + 1][j] ) counter++;
+				if (map[i + 1][j + 1] ) counter++;
 			}
 			//Правая грань
 			if ((i != 0 && i != y - 1) && j == x - 1) {
-				if (map[i - 1][j - 1] == 1) counter++;
-				if (map[i - 1][j] == 1) counter++;
-				if (map[i - 1][0] == 1) counter++;
-				if (map[i][j - 1] == 1) counter++;
-				if (map[i][0] == 1) counter++;
-				if (map[i + 1][j - 1] == 1) counter++;
-				if (map[i + 1][j] == 1) counter++;
-				if (map[i + 1][0] == 1) counter++;
+				if (map[i - 1][j - 1] ) counter++;
+				if (map[i - 1][j] ) counter++;
+				if (map[i - 1][0] ) counter++;
+				if (map[i][j - 1] ) counter++;
+				if (map[i][0] ) counter++;
+				if (map[i + 1][j - 1] ) counter++;
+				if (map[i + 1][j] ) counter++;
+				if (map[i + 1][0] ) counter++;
 			}
 			//Левый верхний угол
 			if (i == 0 && j == 0) {
-				if (map[y - 1][x - 1] == 1) counter++;
-				if (map[y - 1][j] == 1) counter++;
-				if (map[y - 1][j + 1] == 1) counter++;
-				if (map[i][x - 1] == 1) counter++;
-				if (map[i][j + 1] == 1) counter++;
-				if (map[i + 1][x - 1] == 1) counter++;
-				if (map[i + 1][j] == 1) counter++;
-				if (map[i + 1][j + 1] == 1) counter++;
+				if (map[y - 1][x - 1] ) counter++;
+				if (map[y - 1][j] ) counter++;
+				if (map[y - 1][j + 1] ) counter++;
+				if (map[i][x - 1] ) counter++;
+				if (map[i][j + 1] ) counter++;
+				if (map[i + 1][x - 1] ) counter++;
+				if (map[i + 1][j] ) counter++;
+				if (map[i + 1][j + 1] ) counter++;
 			}
 			//правый верхний угол
 			if (i == 0 && j == x - 1) {
-				if (map[y - 1][j - 1] == 1) counter++;
-				if (map[y - 1][j] == 1) counter++;
-				if (map[y - 1][0] == 1) counter++;
-				if (map[i][j - 1] == 1) counter++;
-				if (map[i][0] == 1) counter++;
-				if (map[i + 1][j - 1] == 1) counter++;
-				if (map[i + 1][j] == 1) counter++;
-				if (map[i + 1][0] == 1) counter++;
+				if (map[y - 1][j - 1] ) counter++;
+				if (map[y - 1][j] ) counter++;
+				if (map[y - 1][0] ) counter++;
+				if (map[i][j - 1] ) counter++;
+				if (map[i][0] ) counter++;
+				if (map[i + 1][j - 1] ) counter++;
+				if (map[i + 1][j] ) counter++;
+				if (map[i + 1][0] ) counter++;
 			}
 			//Правый нижний угол
 			if (i == y - 1 && j == x - 1) {
-				if (map[i - 1][j - 1] == 1) counter++;
-				if (map[i - 1][j] == 1) counter++;
-				if (map[i - 1][0] == 1) counter++;
-				if (map[i][j - 1] == 1) counter++;
-				if (map[i][0] == 1) counter++;
-				if (map[0][j - 1] == 1) counter++;
-				if (map[0][j] == 1) counter++;
-				if (map[0][0] == 1) counter++;
+				if (map[i - 1][j - 1] ) counter++;
+				if (map[i - 1][j] ) counter++;
+				if (map[i - 1][0] ) counter++;
+				if (map[i][j - 1] ) counter++;
+				if (map[i][0] ) counter++;
+				if (map[0][j - 1] ) counter++;
+				if (map[0][j] ) counter++;
+				if (map[0][0] ) counter++;
 			}
 			//Левый нижний угол
 			if (i == y - 1 && j == 0) {
-				if (map[i - 1][x - 1] == 1) counter++;
-				if (map[i - 1][j] == 1) counter++;
-				if (map[i - 1][j + 1] == 1) counter++;
-				if (map[i][x - 1] == 1) counter++;
-				if (map[i][j + 1] == 1) counter++;
-				if (map[0][x - 1] == 1) counter++;
-				if (map[0][j] == 1) counter++;
-				if (map[0][j + 1] == 1) counter++;
+				if (map[i - 1][x - 1]) counter++;
+				if (map[i - 1][j] ) counter++;
+				if (map[i - 1][j + 1] ) counter++;
+				if (map[i][x - 1] ) counter++;
+				if (map[i][j + 1] ) counter++;
+				if (map[0][x - 1] ) counter++;
+				if (map[0][j] ) counter++;
+				if (map[0][j + 1] ) counter++;
 			}
 
 			//проверка окружения каждой клетки
@@ -137,7 +141,7 @@ void Map::checkMap() {
 						for (int checkX = -1; checkX < 2; checkX++)
 						{
 							if (checkY != 0 || checkX != 0) {
-								if (map[i + checkY][j + checkX] == 1) counter++;
+								if (map[i + checkY][j + checkX]) counter++;
 							}
 						}
 					}
@@ -158,7 +162,6 @@ void Map::checkMap() {
 			counter = 0;
 		}
 	}
-
 	//Обновление карты
 	for (int i = 0; i < y; i++)
 	{
@@ -171,7 +174,6 @@ void Map::checkMap() {
 		}
 	}	
 }
-
 
 
 
