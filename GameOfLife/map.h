@@ -2,6 +2,8 @@
 #include <string>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <Windows.h>
+
 using namespace std;
 using namespace sf;
 
@@ -9,9 +11,10 @@ class Map
 {
 public:
 	Map();
-	const int y = 1366;
-	const int x = 768;
-	
+	int scrX = GetSystemMetrics(SM_CXSCREEN);
+	int scrY = GetSystemMetrics(SM_CYSCREEN);
+	int y = 1366;
+	int x = 768;
 
 	void checkMap();
 	bool printMap(int i, int j) { return map[i][j]; }

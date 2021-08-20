@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "map.h"
+#include <Windows.h>
 
 using namespace std;
 using namespace sf;
@@ -12,18 +13,9 @@ const double PI = acos(-1.0);
 
 int main()
 {
-	srand(PI);
+	srand(time(0));
 	
-	sf::RenderWindow window(sf::VideoMode(1366, 768), "Game of Life");
-	sf::Event event;
-	View view;
-
-	Map map;
-	int width = map.y;
-	int height = map.x;
-
-	view.reset(FloatRect(0, 0, (width)*10, (height)*10));
-	
+	//Create Texture
 	Image world_image;
 	world_image.loadFromFile("images/square.bmp");
 	Texture world;
@@ -31,10 +23,20 @@ int main()
 	Sprite s_world;
 	s_world.setTexture(world);
 
+	//Render Window by screen
+	int scrX = GetSystemMetrics(SM_CXSCREEN);
+	int scrY = GetSystemMetrics(SM_CYSCREEN);
+	sf::RenderWindow window(sf::VideoMode(scrX, scrY), "Game of Life");
+	sf::Event event;
 	
+	Map map;
+	int width = map.y;
+	int height = map.x;
 
-	Thread thread(&checkMapThread, map);
+	View view;
+	view.reset(FloatRect(0, 0, (width)*10, (height)*10));
 	
+	Thread thread(&checkMapThread, map);
 	Mutex mut;
 	
 	while (window.isOpen())

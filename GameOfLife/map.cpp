@@ -1,13 +1,12 @@
 #include "map.h"
 Map::Map() {
-	cout << "Create" << this << endl;
+	/*cout << "Create" << this << endl;*/
 	map = new bool* [y];
 	for (int i = 0; i < y; i++) map[i] = new bool[x];
 	newMap = new bool* [y];
 	for (int i = 0; i < y; i++) newMap[i] = new bool[x];
 	
 	//Generator
-	
 	for (int i = 0; i < y; i++){
 		for (int j = 0; j < x; j++)
 		{
@@ -16,25 +15,10 @@ Map::Map() {
 			newMap[i][j] = 0;
 		}
 	}
-	/*for (int i = 0; i < y; i++){
-		for (int j = 0; j < x; j++)
-		{
-			map[i][j] = 0;
-			newMap[i][j] = 0;
-		}
-	}
-	map[1][2] = 1;
-	map[2][2] = 1;
-	map[3][2] = 1;
-	map[19][20] = 1;
-	map[20][20] = 1;
-	map[20][18] = 1;
-	map[21][20] = 1;
-	map[21][19] = 1;*/
 }
 
 Map::~Map() {
-	cout << "Delete" << this << endl;
+	/*cout << "Delete" << this << endl;*/
 }
 
 void Map::checkMap() {
@@ -156,7 +140,6 @@ void Map::checkMap() {
 				}
 			}
 			else if (counter == 3) newMap[i][j] = 1;
-			
 			
 			counter = 0;
 		}
