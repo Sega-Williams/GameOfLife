@@ -34,8 +34,7 @@ Map::Map() {
 }
 
 Map::~Map() {
-	cout << "Delete\n";
-	
+	cout << "Delete" << this << endl;
 }
 
 void Map::checkMap() {
