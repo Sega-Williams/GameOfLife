@@ -13,10 +13,16 @@ const double PI = acos(-1.0);
 int main()
 {
 	srand(PI);
+	
 	sf::RenderWindow window(sf::VideoMode(1366, 768), "Game of Life");
 	sf::Event event;
 	View view;
-	view.reset(FloatRect(0, 0, (1366 )*10, (768)*10));
+
+	Map map;
+	int width = map.y;
+	int height = map.x;
+
+	view.reset(FloatRect(0, 0, (width)*10, (height)*10));
 	
 	Image world_image;
 	world_image.loadFromFile("images/square.bmp");
@@ -25,7 +31,7 @@ int main()
 	Sprite s_world;
 	s_world.setTexture(world);
 
-	Map map;
+	
 
 	Thread thread(&checkMapThread, map);
 	Mutex mut;
@@ -69,7 +75,6 @@ void checkMapThread(Map& map) {
 	mut.lock();
 	map.checkMap();
 	mut.unlock();
-	map.updateMap();
-	map.nullNextGen();
+	/*map.updateMap();*/
 }
 

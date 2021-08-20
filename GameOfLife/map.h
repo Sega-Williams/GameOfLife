@@ -9,18 +9,20 @@ class Map
 {
 public:
 	Map();
-	const int y = 1366;
-	const int x = 768;
-	void nullNextGen();
+	/*const int y = 1366;
+	const int x = 768;*/
+	const int y = 200;
+	const int x = 200;
+
 	void checkMap();
-	void updateMap();
-	bool printMap(int i, int j);
+	/*void updateMap();*/
+	bool printMap(int i, int j) { return map[i][j]; }
 	
 private:
 	int counter = 0;
 	
-	char** map;
-	char** newMap;
+	bool** map;
+	bool** newMap;
 	
 
 };
